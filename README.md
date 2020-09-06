@@ -35,5 +35,5 @@ This program will take a sequence of DNA and a CSV file containing STR counts fo
 
 
 ***
-This is my interpretation of the problem called DNA from the CS50x week 6 problem set.
+**This is my interpretation of the problem called DNA from the CS50x week 6 problem set.**
 ***
