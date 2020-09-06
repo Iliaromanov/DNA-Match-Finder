@@ -2,5 +2,5 @@
 
 A program that identifies a person based on their DNA, per the below.
 
->$ python dna.py {.csv file containing names and their corresponding DNA patterns} {.txt file containing the DNA sequence of an unidentified person}
+>$ python dna.py {DNA datbase in .csv file format} {DNA sequence of an unidentified person in .txt file format}
 >{Name of Match}
