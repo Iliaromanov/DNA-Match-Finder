@@ -1,24 +1,34 @@
 from sys import argv, exit
 import csv
 
-# ensure user gives exactly three command line arguments
-if len(argv) != 3:
-    print("Usage: dna.py {database} {sequence}")
-    exit(1)
 
-# load the dna database into memory as a dictionary
-# the names of the persons will be the keys of the dict and an array of their repeating DNA sequences will be the values
-with open(argv[1]) as csvfile:
-    database = {}
-    reader = csv.DictReader(csvfile, fieldnames = ['name'], restkey = "seq")
-    for row in reader:
-        database[row['name']] = row['seq']
+def main():
+    # a touple: (database, DNA_sample)
+    data = setup()
+    print(search_database(data[0], data[1]))
 
-# load the dna sequence into memory as a string
-with open(argv[2], "r") as seq:
-    dna = ""
-    for nucleotide in seq:
-        dna += nucleotide
+
+def setup():
+    # ensure user gives exactly three command line arguments
+    if len(argv) != 3:
+        print("Usage: dna.py {database} {sequence}")
+        exit(1)
+    
+    # load the dna database into memory as a dictionary
+    # the names of the persons will be the keys of the dict and an array of their repeating DNA sequences will be the values
+    with open(argv[1]) as csvfile:
+        database = {}
+        reader = csv.DictReader(csvfile, fieldnames = ['name'], restkey = "seq")
+        for row in reader:
+            database[row['name']] = row['seq']
+    
+    # load the dna sequence into memory as a string
+    with open(argv[2], "r") as seq:
+        dna = ""
+        for nucleotide in seq:
+            dna += nucleotide
+            
+    return (database, dna)
 
 
 def count_string_repeat(string: str, text: str) -> int:
@@ -52,12 +62,15 @@ def search_database(database: dict, dna: str) -> str:
     # make and populate an array for counts of STRs
     STRs = []
     for seq in database['name']:
-        STRs.append(count_string_repeat(seq, dna))
+        STRs.append(str(count_string_repeat(seq, dna)))
     
     # search database for matching array of STR counts
     for person in database:
-        if database['person'] == STRs:
+        if database[person] == STRs:
             return person
 
     return "No match"
-    
+
+
+if __name__ == "__main__":
+    main()
